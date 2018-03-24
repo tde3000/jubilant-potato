@@ -6,7 +6,8 @@ Commands describe the input the account can do to the game.
 """
 
 from evennia import Command as BaseCommand
-# from evennia import default_cmds
+from evennia import default_cmds
+from typeclasses.objects import Object
 
 
 class Command(BaseCommand):
@@ -30,6 +31,33 @@ class Command(BaseCommand):
 
     """
     pass
+
+
+class CmdTalk(default_cmds.MuxCommand):
+    """
+    talk as your character to an NPC
+
+    Usage:
+        talk <NPC>
+
+    """
+    key = "talk"
+
+    def func(self):
+        caller = self.caller
+        args = self.args.split()
+        if not args:
+            caller.msg("Who are you talking to?")
+        elif (len(args) > 1):
+            caller.msg("You can only talk to one character at a time")
+        else:
+            name = args[0]
+            npc = caller.search(name)
+            if npc:
+                if not (type(npc) is Object):
+                    caller.msg("{} isn't here".format(npc))
+                else:
+                    caller.msg("{} says hello".format(npc))
 
 # -------------------------------------------------------------
 #
