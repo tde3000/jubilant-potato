@@ -31,3 +31,10 @@ class Character(DefaultCharacter):
 
     """
     pass
+
+class CharNPC(Character):
+    """
+    An NPC typeclass which extends character.
+    Able to reply to talk command
+    """
+    pass
