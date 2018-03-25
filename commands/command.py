@@ -49,20 +49,27 @@ class CmdTalk(default_cmds.MuxCommand):
         args = self.args.split()
         if not args:
             caller.msg("Who are you talking to?")
-        elif (len(args) > 1):
+            return
+        if len(args) > 1:
             caller.msg("You can only talk to one character at a time.")
-        else:
-            name = args[0]
-            npc = caller.search(name)
-            if npc:
-                if type(npc) is characters.CharNPC:
-                    caller.msg("{} says hello.".format(npc))
-                elif type(npc) is characters.Character:
-                    caller.msg("You can just |gsay |Wsomething out loud or |gtell {} |Wsomething privately.".format(npc))
-                elif isinstance(npc, Object):
-                    caller.msg("You can't talk to objects, silly.")
-                else:
-                    caller.msg("There's no one here named {}.".format(npc))
+            return
+
+        name = args[0]
+        npc = caller.search(name)
+        if npc:
+            if type(npc) is characters.CharNPC:
+                caller.msg("{} says hello.".format(npc))
+                return
+            if type(npc) is characters.Character:
+                caller.msg("You can just |gsay |Wsomething out loud or |gtell {} |Wsomething privately.".format(npc))
+                return
+            if isinstance(npc, Object):
+                caller.msg("You can't talk to objects, silly.")
+                return
+            else:
+                caller.msg("There's no one here named {}.".format(npc))
+
+        return
 
 # -------------------------------------------------------------
 #
