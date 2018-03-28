@@ -8,6 +8,7 @@ creation commands.
 
 """
 from evennia import DefaultCharacter
+from world.questlog import QuestLog
 
 
 class Character(DefaultCharacter):
@@ -30,7 +31,14 @@ class Character(DefaultCharacter):
     at_post_puppet - Echoes "AccountName has entered the game" to the room.
 
     """
-    pass
+
+    def at_object_creation(self):
+        if not self.db.quest_log:
+            self.db.quest_log = QuestLog()
+
+    
+
+
 
 class CharNPC(Character):
     """
