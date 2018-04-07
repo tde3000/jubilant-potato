@@ -1,4 +1,9 @@
 def search_tags(tags):
+    """
+
+    :param tags: list of either tag strings or tag and category list/tuple
+    :return: all objects containing all of the tags
+    """
     # Using sets for intersect and performance
     # http://blog.michelemattioni.me/2015/01/10/list-intersection-in-python-lets-do-it-quickly/
     tag = tags.pop(0)
