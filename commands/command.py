@@ -8,7 +8,7 @@ Commands describe the input the account can do to the game.
 from evennia import Command as BaseCommand
 from evennia import default_cmds
 import typeclasses.characters as characters
-from typeclasses.objects import Object
+import typeclasses.objects as objects
 
 
 class Command(BaseCommand):
@@ -58,12 +58,12 @@ class CmdTalk(default_cmds.MuxCommand):
         npc = caller.search(name)
         if npc:
             if type(npc) is characters.CharNPC:
-                caller.msg("{} says hello.".format(npc))
+                npc.talk(caller)
                 return
             if type(npc) is characters.Character:
                 caller.msg("You can just |gsay |Wsomething out loud or |gtell {} |Wsomething privately.".format(npc))
                 return
-            if isinstance(npc, Object):
+            if isinstance(npc, objects.Object):
                 caller.msg("You can't talk to objects, silly.")
                 return
             else:

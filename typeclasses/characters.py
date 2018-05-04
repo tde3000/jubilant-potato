@@ -9,6 +9,8 @@ creation commands.
 """
 from evennia import DefaultCharacter
 from world.questlog import QuestLog
+from world.utils import search_tags
+from evennia.utils.evmenu import EvMenu
 
 
 class Character(DefaultCharacter):
@@ -33,11 +35,7 @@ class Character(DefaultCharacter):
     """
 
     def at_object_creation(self):
-        if not self.db.quest_log:
-            self.db.quest_log = QuestLog()
-
-    
-
+        self.db.quest_log = QuestLog()
 
 
 class CharNPC(Character):
@@ -45,4 +43,31 @@ class CharNPC(Character):
     An NPC typeclass which extends character.
     Able to reply to talk command
     """
-    pass
+    DEFAULT_GREETING = "Hello, stranger"
+
+    def at_object_creation(self):
+        self.greeting = self.DEFAULT_GREETING
+
+    def generate_menu_data(self, caller):
+        menu_data = {"start":
+                         lambda caller:(
+                             self.greeting,
+                             {}
+                         )
+                     }
+        return menu_data
+
+    def talk(self, caller):
+        menu_data = self.generate_menu_data(caller)
+        EvMenu(caller, menu_data)
+
+    @property
+    def greeting(self):
+        return self.db.greeting
+
+    @greeting.setter
+    def greeting(self, greeting):
+        self.db.greeting = greeting
+
+
+
