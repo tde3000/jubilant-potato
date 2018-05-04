@@ -26,8 +26,8 @@ class TestTypeclasses(CommandTest):
         npc = create.create_object(characters.CharNPC, key="npc2", location=self.room1)
 
         default_greeting = characters.CharNPC.DEFAULT_GREETING
-        dialog = npc.generate_menu_data(npc)
-        greeting = dialog["start"](npc)[0]
+        dialog = npc.generate_menu_data(pc)
+        greeting = dialog["start"](pc)[0]
 
         self.assertEquals(greeting, default_greeting, "Start node doesn't contain the default greeting, instaed contains '{}'".format(greeting))
 
