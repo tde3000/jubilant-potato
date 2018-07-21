@@ -36,6 +36,7 @@ class Character(DefaultCharacter):
 
     def at_object_creation(self):
         self.db.quest_log = QuestLog()
+        self.db.trackers = {}
 
 
 class CharNPC(Character):
@@ -55,6 +56,7 @@ class CharNPC(Character):
                              {}
                          )
                      }
+        # add other eligilble dialogs
         return menu_data
 
     def talk(self, caller):

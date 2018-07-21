@@ -17,7 +17,7 @@ class TestTalk(CommandTest):
 
         expected_no_args = "Who are you talking to?"
         expected_too_many_args = "You can only talk to one character at a time."
-        expected_npc = "Hello, stranger"
+        expected_npc = npc.DEFAULT_GREETING
         expected_pc = "You can just say something out loud or tell {} something privately."
         expected_obj = "You can't talk to objects, silly."
         expected_not_found = "Could not find '{}'."
